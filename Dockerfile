@@ -38,7 +38,11 @@ RUN apt-get update && \
         /usr/local/bin/composer.php \
         /var/www/bin \
         /var/www/html \
-        /var/www/uvdesk/.docker;
+        /var/www/uvdesk/.docker; && \
+    ./composer.phar require uvdesk/automation-bundle && \
+    ./composer.phar require uvdesk/api-bundle && \
+    php bin/console doctrine:schema:update --force && \
+    php bin/console cache:clear --env prod
 
 # Change working directory to uvdesk source
 WORKDIR /var/www
